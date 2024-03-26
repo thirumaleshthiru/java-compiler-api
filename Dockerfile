@@ -14,8 +14,8 @@ COPY . /app
 # Install any needed dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 8080 available to the world outside this container
+# Expose port 8080
 EXPOSE 8080
 
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+# Run Gunicorn with 4 worker processes
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "4", "app:app"]
